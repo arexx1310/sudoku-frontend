@@ -1,0 +1,14 @@
+@import "tailwindcss";
+/* mern-sudoku/client/src/index.css */
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * You might need a small adjustment for the input type 'text'
+ * to ensure numbers are centered correctly in the cells.
+ */
+.App input[type="text"] {
+  /* This is often a good idea for Sudoku-style inputs */
+  -moz-appearance: textfield; 
+}
