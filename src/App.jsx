@@ -50,19 +50,7 @@ function App() {
     }
   };
 
-  const checkAllConflicts = (board) => {
-    let conflicts = [];
-    for (let r = 0; r < 9; r++) {
-      for (let c = 0; c < 9; c++) {
-        if (board[r][c] !== 0) {
-          conflicts.push(
-            ...checkImmediateConflicts(board, r, c, board[r][c])
-          );
-        }
-      }
-    }
-    return conflicts;
-  };
+  
 
   const handleCellChange = (row, col, value) => {
     if (initialBoard[row][col] !== 0) return;
