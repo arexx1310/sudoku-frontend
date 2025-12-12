@@ -1,29 +1,25 @@
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const getNewPuzzle = async (difficulty) => {
-  const response = await fetch(`${API_URL}/new`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ difficulty }),
+  const res = await fetch(`${API_URL}/new`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ difficulty })
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch puzzle");
   }
-  
-  return response.json();
+
+  return res.json();
 };
 
 export const validateBoard = async (board) => {
-  const response = await fetch(`${API_URL}/validate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ board }),
+  const res = await fetch(`${API_URL}/validate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ board })
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  
-  return response.json();
+  return res.json();
 };
