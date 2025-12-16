@@ -90,7 +90,7 @@ function App() {
 
   return (
     <div
-      className="App min-h-screen flex flex-col items-center py-12 px-4 
+      className="App w-full h-screen flex flex-col items-center py-12 px-4 
                  bg-gray-900 text-gray-100 font-sans 
                  bg-gradient-to-t from-gray-900 to-gray-800"
     >
