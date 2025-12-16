@@ -1,44 +1,36 @@
 import React from 'react';
 
 const Cell = ({ value, onChange, isInitial, isConflict, row, col }) => {
-  // Base classes for the input field (cell)
+  // FIXED: Removed w-12 h-12. Added w-full and aspect-square.
+  // Added 'inputMode="numeric"' and responsive text sizes.
   let cellClasses =
-    'w-12 h-12 text-center text-2xl transition-all duration-300 ease-in-out appearance-none cursor-pointer';
+    'w-full aspect-square text-center text-xl md:text-2xl transition-all duration-300 ease-in-out appearance-none cursor-pointer outline-none flex items-center justify-center';
 
-  // Apply different styles based on cell state
   if (isInitial) {
-    // Initial: Clean grey background, bold, dark text
-    cellClasses += ' bg-gray-100 text-gray-800 font-extrabold cursor-default';
+    cellClasses += ' bg-gray-200 text-gray-800 font-extrabold cursor-default';
   } else {
-    // User Input: Pure white background, distinguished text color
     cellClasses += ' bg-white text-indigo-700 font-bold';
-    // Interactive: Subtle lift and deep ring on focus
-    cellClasses += ' focus:bg-indigo-50 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 focus:scale-[1.03] z-10 shadow-sm hover:shadow-md';
+    cellClasses += ' focus:bg-indigo-50 focus:ring-2 focus:ring-inset focus:ring-indigo-400 z-10';
   }
 
-  // Conflict Animation and Styling (Bright Red)
   if (isConflict) {
-    // Strong visual feedback for error
-    cellClasses += ' bg-red-200 text-red-800 animate-shake';
+    cellClasses += ' bg-red-200 text-red-800 animate-pulse';
   }
 
-  // Thicker Borders for 3x3 Blocks
-  // The main grid container in SudokuGrid.jsx handles the outer border.
-  // We use border-gray-300 for thin lines and border-gray-600 for thick separators.
-  
-  // Apply standard thin border
+  // Borders
   cellClasses += ' border border-gray-300';
   
-  // Override with thick border for 3x3 separation
   if (col % 3 === 2 && col !== 8) {
-    cellClasses += ' border-r-[3px] border-r-gray-600'; // Increased thickness
+    cellClasses += ' border-r-[2px] md:border-r-[3px] border-r-gray-700';
   }
   if (row % 3 === 2 && row !== 8) {
-    cellClasses += ' border-b-[3px] border-b-gray-600'; // Increased thickness
+    cellClasses += ' border-b-[2px] md:border-b-[3px] border-b-gray-700';
   }
 
   const handleChange = (e) => {
-    const newValue = e.target.value.replace(/[^1-9]/g, '');
+    // Take the last character typed to allow easy overwriting
+    const char = e.target.value.slice(-1);
+    const newValue = char.replace(/[^1-9]/g, '');
 
     if (!isInitial) {
       onChange(row, col, newValue ? parseInt(newValue) : 0);
@@ -49,6 +41,8 @@ const Cell = ({ value, onChange, isInitial, isConflict, row, col }) => {
     <input
       className={cellClasses}
       type="text"
+      inputMode="numeric" // Forces number pad on mobile
+      pattern="[1-9]*"
       maxLength="1"
       value={value === 0 ? '' : value}
       onChange={handleChange}
